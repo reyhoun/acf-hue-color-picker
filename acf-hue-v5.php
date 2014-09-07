@@ -1,6 +1,6 @@
 <?php
 
-class acf_field_hue extends acf_field {
+class acf_field_hue_color_picker extends acf_field {
 	
 	
 	/*
@@ -22,14 +22,14 @@ class acf_field_hue extends acf_field {
 		*  name (string) Single word, no spaces. Underscores allowed
 		*/
 		
-		$this->name = 'hue';
+		$this->name = 'acf-hue-color-picker';
 		
 		
 		/*
 		*  label (string) Multiple words, can include spaces, visible when selecting a field type
 		*/
 		
-		$this->label = __('Hue', 'acf-hue');
+		$this->label = __('Hue Color Picker', 'acf-hue-color-picker');
 		
 		
 		/*
@@ -44,17 +44,17 @@ class acf_field_hue extends acf_field {
 		*/
 		
 		$this->defaults = array(
-			'font_size'	=> 14,
+			'hue_default'	=> 199,
 		);
 		
 		
 		/*
 		*  l10n (array) Array of strings that are used in JavaScript. This allows JS strings to be translated in PHP and loaded via:
-		*  var message = acf._e('hue', 'error');
+		*  var message = acf._e('Hue Color Picker', 'error');
 		*/
 		
 		$this->l10n = array(
-			'error'	=> __('Error! Please enter a higher value', 'acf-hue'),
+			'error'	=> __('Error! Please enter a higher value', 'acf-hue-color-picker'),
 		);
 		
 				
@@ -90,11 +90,9 @@ class acf_field_hue extends acf_field {
 		*/
 		
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Font Size','acf-hue'),
-			'instructions'	=> __('Customise the input font size','acf-hue'),
+			'label'			=> __('Hue Default Value','acf-hue-color-picker'),
 			'type'			=> 'number',
-			'name'			=> 'font_size',
-			'prepend'		=> 'px',
+			'name'			=> 'hue_default',
 		));
 
 	}
@@ -118,35 +116,73 @@ class acf_field_hue extends acf_field {
 	
 	function render_field( $field ) {
 		
+		$dir = plugin_dir_url( __FILE__ );
+
+		echo '
+		<style>
+			.clearfix:after {
+			    content: ".";
+			    display: block;
+			    clear: both;
+			    visibility: hidden;
+			    line-height: 0;
+			    height: 0;
+			}
+			 
+			.clearfix {
+			    display: inline-block;
+			}
+			 
+			html[xmlns] .clearfix {
+			    display: block;
+			}
+			 
+			* html .clearfix {
+			    height: 1%;
+			}
+			
+			.hue-picker-label {
+				float: left;
+				width: 5%;
+				line-height: 24px;
+				font-weight: bold;
+			}
+			#amount-hue {
+				width: 20%;
+				color: #fff;
+				float: left;
+			}
+			#hue-slider-range-max {
+				width: 73%;
+				float: right;
+				margin-top: 6px;
+			}
+			.field_type-acf-hue-color-picker .ui-widget-header {
+				background: transparent;
+			}
+
+			.field_type-acf-hue-color-picker .ui-widget-content {
+				background: url("' . $dir . 'images/color_picker_bar.png") 0 0 / cover no-repeat;
+			}
+		</style>
+		';
+
 
         // add empty value (allows '' to be selected)
         if( empty($field['value']) ){
 
-            $field['value'] = '180';
+            $field['value'] = $field['hue_default'];
             
         }
 
 
 		echo '
-
-
-
-				<p>
-					<span>Hue :</span>
-				  	<input name="' . $field['name'] . '" type="number" id="amount"  value="' . $field['value'] . '" style="border:1; font-weight:bold;">
-				</p>
-
-				<div id="slider-range-max"></div>
-
-
+				<div class="clearfix">
+					<span class="hue-picker-label">Hue :</span>
+				  	<input name="' . $field['name'] . '" type="number" id="amount-hue"  value="' . $field['value'] . '" style="border:1; font-weight:bold;">
+					<div id="hue-slider-range-max"></div>
+				</div>
 			 ';
-
-
-
-
-
-
-
 	}
 	
 		
@@ -169,29 +205,15 @@ class acf_field_hue extends acf_field {
 	function input_admin_enqueue_scripts() {
 		
 		$dir = plugin_dir_url( __FILE__ );
-		
-		
-		// register & include JS
-		wp_register_script( 'acf-foundation-hue', "{$dir}js/foundation.min.js" );
-		wp_enqueue_script('acf-foundation-hue');
-
 
 		// register & include JS
 		wp_register_script( 'acf-input-hue', "{$dir}js/input.js" );
 		wp_enqueue_script('acf-input-hue');
 
-		
-
 
 		// register & include CSS
 		wp_register_style( 'acf-jquery-ui-hue', "http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" ); 
 		wp_enqueue_style('acf-jquery-ui-hue');
-
-		// register & include CSS
-		wp_register_style( 'acf-input-hue', "{$dir}css/input.css" ); 
-		wp_enqueue_style('acf-input-hue');
-		
-		
 	}
 	
 	
@@ -449,7 +471,7 @@ class acf_field_hue extends acf_field {
 		// Advanced usage
 		if( $value < $field['custom_minimum_setting'] )
 		{
-			$valid = __('The value is too little!','acf-hue'),
+			$valid = __('The value is too little!','acf-hue-color-picker'),
 		}
 		
 		
@@ -563,6 +585,6 @@ class acf_field_hue extends acf_field {
 
 
 // create field
-new acf_field_hue();
+new acf_field_hue_color_picker();
 
 ?>

@@ -1,71 +1,46 @@
 (function($){
 	
-	
 	function initialize_field( $el ) {
-		
-		//$el.doStuff();
 		
 	}
 	
-	
 	if( typeof acf.add_action !== 'undefined' ) {
 	
-		
-		//=====================================================================================
+		$(function() {
+			$( "#hue-slider-range-max" ).slider({
+				range: "max",
+				min: 0,
+				max: 359,
+				value: 180,
+				slide: function( event, ui ) {
+					var hslColor = '';
+					hslColor = 'hsl(' + ui.value + ', 80%, 50%)';
+					$('#amount-hue').css("background-color",hslColor)
+					$('#amount-hue').val( ui.value );
+				}
+			});
 
+			$('#amount-hue').on('change',function () {
+				$( "#hue-slider-range-max" ).slider( "value", $( "#amount-hue" ).val());
+				$('#amount-hue').css("background-color",'hsl(' + $( "#hue-slider-range-max" ).slider( "value" ) + ',100%,50%)')
+			})
 
-$(function() {
-    $( "#slider-range-max" ).slider({
-      range: "max",
-      min: 0,
-      max: 359,
-      value: 180,
-      slide: function( event, ui ) {
-
-        var hslColor = '';
-        hslColor = 'hsl(' + ui.value + ',80%,50%)';
-        $('#amount').css("background-color",hslColor)
-        $( "#amount" ).val( ui.value );
-        
-
-      }
-    });
-
-
-    $('#amount').on('change',function () {
-
-        $( "#slider-range-max" ).slider( "value", $( "#amount" ).val());
-        $('#amount').css("background-color",'hsl(' + $( "#slider-range-max" ).slider( "value" ) + ',100%,50%)')
-    })
-
-
-
-    $( "#slider-range-max" ).slider( "value", $( "#amount" ).val());
-    $('#amount').css("background-color",'hsl(' + $( "#amount" ).val() + ',100%,50%)')
-  });
-
-
-
-
-
-		//=====================================================================================
-
-
+			$( "#hue-slider-range-max" ).slider( "value", $( "#amount-hue" ).val());
+			$('#amount-hue').css("background-color",'hsl(' + $( "#amount-hue" ).val() + ',100%,50%)')
+		});
 		
 		acf.add_action('ready append', function( $el ){
 			
-			// search $el for fields of type 'hue'
-			acf.get_fields({ type : 'hue'}, $el).each(function(){
+			// search $el for fields of type 'Hue Color Picker'
+			acf.get_fields({ type : 'Hue Color Picker'}, $el).each(function(){
 				
 				initialize_field( $(this) );
 				
 			});
 			
 		});
-		
-		
+
 	} else {
-		
 		
 		/*
 		*  acf/setup_fields (ACF4)
@@ -94,9 +69,5 @@ $(function() {
 	
 	
 	}
-
-  // $(document).foundation();
-
-
 
 })(jQuery);
