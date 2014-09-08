@@ -153,7 +153,7 @@ class acf_field_hue_color_picker extends acf_field {
 			
 			.hue-picker-label {
 				float: left;
-				width: 5%;
+				width: 7%;
 				line-height: 24px;
 				font-weight: bold;
 			}
@@ -163,7 +163,7 @@ class acf_field_hue_color_picker extends acf_field {
 				float: left;
 			}
 			#' . $field['key'] . '1 {
-				width: 73%;
+				width: 70%;
 				float: right;
 				margin-top: 6px;
 			}
@@ -189,7 +189,7 @@ class acf_field_hue_color_picker extends acf_field {
 		echo '
 				<div class="clearfix">
 					<span class="hue-picker-label">Hue :</span>
-				  	<input name="' . $field['name'] . '" type="number" id="' . $field['key'] . '"  value="' . $field['value'] . '" style="border:1; font-weight:bold;">
+				  	<input name="' . $field['name'] . '" type="number" min="0" max="359" id="' . $field['key'] . '"  value="' . $field['value'] . '" style="border:1; font-weight:bold;">
 					<div id="' . $field['key'] . '1"></div>
 				</div>
 			 ';
@@ -215,7 +215,12 @@ class acf_field_hue_color_picker extends acf_field {
 							value: 180,
 							slide: function( event, ui ) {
 								var hslColor = '';
-								hslColor = 'hsl(' + ui.value + ', 80%, 50%)';
+								if (ui.value == 0) {
+									hslColor = 'hsl(' + ui.value + ', 0%, 50%)';
+								} else {
+									hslColor = 'hsl(' + ui.value + ', 80%, 50%)';
+								}
+								
 								$(amount_hue_id).css('background-color',hslColor)
 								$(amount_hue_id).val( ui.value );
 							}
@@ -223,7 +228,12 @@ class acf_field_hue_color_picker extends acf_field {
 
 						$(amount_hue_id).on('change',function () {
 							$( hue_slider_range_max_id ).slider('value' , $( amount_hue_id ).val());
-							$(amount_hue_id).css('background-color','hsl(' + $( hue_slider_range_max_id ).slider( 'value' ) + ',100%,50%)')
+							if ($( amount_hue_id ).val() == 0) {
+								$(amount_hue_id).css('background-color','hsl(' + $( hue_slider_range_max_id ).slider( 'value' ) + ',0%,50%)');
+							} else {
+								$(amount_hue_id).css('background-color','hsl(' + $( hue_slider_range_max_id ).slider( 'value' ) + ',100%,50%)');
+							}
+							
 						})
 
 						$( hue_slider_range_max_id ).slider( 'value', $( amount_hue_id).val());
