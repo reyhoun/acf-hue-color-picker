@@ -48,7 +48,6 @@ class acf_field_hue_color_picker extends acf_field {
 		
 		$this->defaults = array(
 			'hue_default'	=> 199,
-			'fieldhue' 		=> 'f',
 		);
 		
 		
@@ -94,8 +93,9 @@ class acf_field_hue_color_picker extends acf_field {
 		*/
 		
 		acf_render_field_setting( $field, array(
-			'key'			=> __('Hue Default Value','acf-hue-color-picker'),
+			'label'			=> __('Hue Default Value','acf-hue-color-picker'),
 			'type'			=> 'number',
+			'append'		=> 'deg',
 			'name'			=> 'hue_default',
 		));
 
