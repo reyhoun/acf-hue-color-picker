@@ -124,7 +124,7 @@ class acf_field_hue_color_picker extends acf_field {
 
 
 		// echo "<pre>";
-		// print_r($field['key']);
+		// print_r($field);
 
 
 
@@ -179,8 +179,8 @@ class acf_field_hue_color_picker extends acf_field {
 
 
         // add empty value (allows '' to be selected)
-        if( empty($field['value']) ){
-
+        if( empty($field['value']) && $field['value'] != 0 ){
+        	echo "string";
             $field['value'] = $field['hue_default'];
             
         }
@@ -237,7 +237,13 @@ class acf_field_hue_color_picker extends acf_field {
 						})
 
 						$( hue_slider_range_max_id ).slider( 'value', $( amount_hue_id).val());
-						$(amount_hue_id).css('background-color','hsl(' + $( amount_hue_id ).val() + ',100%,50%)')
+
+						if ($( amount_hue_id ).val() != 0) {
+							$(amount_hue_id).css('background-color','hsl(' + $( amount_hue_id ).val() + ',100%,50%)')
+						} else {
+							$(amount_hue_id).css('background-color','hsl(' + $( amount_hue_id ).val() + ',0%,50%)')
+						}
+						
 					});
 
 				})(jQuery);
