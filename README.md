@@ -66,4 +66,13 @@ This ACF field type is compatible with:
 4. Please refer to the description for more info regarding the field type settings
 
 ### Changelog
-Please see `readme.txt` for changelog
+
+## 1.1.0 ##
+* Add saturate and Lightness default value
+* Bug fix: Hue Label
+* bug fix: load more than a field
+* bug fix: 0 value
+
+## 1.0.0 ##
+* Initial Release.
+

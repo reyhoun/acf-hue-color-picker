@@ -48,6 +48,8 @@ class acf_field_hue_color_picker extends acf_field {
 		
 		$this->defaults = array(
 			'hue_default'	=> 199,
+			'Lightness'		=> 50,
+			'saturate'		=> 100,
 		);
 		
 		
@@ -97,6 +99,20 @@ class acf_field_hue_color_picker extends acf_field {
 			'type'			=> 'number',
 			'append'		=> 'deg',
 			'name'			=> 'hue_default',
+		));
+
+		acf_render_field_setting( $field, array(
+			'label'			=> __('saturate Default Value','acf-hue-color-picker'),
+			'type'			=> 'number',
+			'append'		=> '%',
+			'name'			=> 'saturate',
+		));
+
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Lightness Default Value','acf-hue-color-picker'),
+			'type'			=> 'number',
+			'append'		=> '%',
+			'name'			=> 'Lightness',
 		));
 
 	}
@@ -216,9 +232,9 @@ class acf_field_hue_color_picker extends acf_field {
 							slide: function( event, ui ) {
 								var hslColor = '';
 								if (ui.value == 0) {
-									hslColor = 'hsl(' + ui.value + ', 0%, 50%)';
+									hslColor = 'hsl(' + ui.value + ', 0%, " . $field['Lightness'] . "%)';
 								} else {
-									hslColor = 'hsl(' + ui.value + ', 80%, 50%)';
+									hslColor = 'hsl(' + ui.value + ', " . $field['saturate'] . "%, " . $field['Lightness'] . "%)';
 								}
 								
 								$(amount_hue_id).css('background-color',hslColor)
@@ -229,9 +245,9 @@ class acf_field_hue_color_picker extends acf_field {
 						$(amount_hue_id).on('change',function () {
 							$( hue_slider_range_max_id ).slider('value' , $( amount_hue_id ).val());
 							if ($( amount_hue_id ).val() == 0) {
-								$(amount_hue_id).css('background-color','hsl(' + $( hue_slider_range_max_id ).slider( 'value' ) + ',0%,50%)');
+								$(amount_hue_id).css('background-color','hsl(' + $( hue_slider_range_max_id ).slider( 'value' ) + ',0%," . $field['Lightness'] . "%)');
 							} else {
-								$(amount_hue_id).css('background-color','hsl(' + $( hue_slider_range_max_id ).slider( 'value' ) + ',100%,50%)');
+								$(amount_hue_id).css('background-color','hsl(' + $( hue_slider_range_max_id ).slider( 'value' ) + '," . $field['saturate'] . "%," . $field['Lightness'] . "%)');
 							}
 							
 						})
@@ -239,9 +255,9 @@ class acf_field_hue_color_picker extends acf_field {
 						$( hue_slider_range_max_id ).slider( 'value', $( amount_hue_id).val());
 
 						if ($( amount_hue_id ).val() != 0) {
-							$(amount_hue_id).css('background-color','hsl(' + $( amount_hue_id ).val() + ',100%,50%)')
+							$(amount_hue_id).css('background-color','hsl(' + $( amount_hue_id ).val() + '," . $field['saturate'] . "%," . $field['Lightness'] . "%)')
 						} else {
-							$(amount_hue_id).css('background-color','hsl(' + $( amount_hue_id ).val() + ',0%,50%)')
+							$(amount_hue_id).css('background-color','hsl(' + $( amount_hue_id ).val() + ',0%," . $field['Lightness'] . "%)')
 						}
 						
 					});
