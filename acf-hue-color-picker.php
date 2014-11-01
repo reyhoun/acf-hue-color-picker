@@ -1,14 +1,15 @@
 <?php
-
 /*
 Plugin Name: Advanced Custom Fields: Hue Color Picker
 Plugin URI: https://github.com/reyhoun/acf-hue-color-picker
 Description: It's a field that user can choose Color by hue.
-Version: 1.1.0 
+Version: 1.2.0 
 Author: Reyhoun
 Author URI: http://reyhoun.com/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+GitHub Plugin URI: https://github.com/reyhoun/acf-hue-color-picker
+GitHub Branch:     master
 */
 
 
@@ -21,7 +22,7 @@ load_plugin_textdomain( 'acf-hue-color-picker', false, dirname( plugin_basename(
 // $version = 5 and can be ignored until ACF6 exists
 function include_field_types_hue( $version ) {
 	
-	include_once('acf-hue-v5.php');
+	include_once('acf-hue-color-picker-v5.php');
 	
 }
 
