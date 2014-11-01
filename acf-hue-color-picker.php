@@ -1,15 +1,15 @@
 <?php
 /*
-    Plugin Name: Advanced Custom Fields: Hue Color Picker
-    Plugin URI: https://github.com/reyhoun/acf-hue-color-picker
-    Description: It's a field that user can choose Color by hue.
-    Version: 1.2.0 
-    Author: Reyhoun
-    Author URI: http://reyhoun.com/
-    License: GPLv2 or later
-    License URI: http://www.gnu.org/licenses/gpl-2.0.html
-    GitHub Plugin URI: https://github.com/reyhoun/acf-hue-color-picker
-    GitHub Branch:     master
+ * Plugin Name: Advanced Custom Fields: Hue Color Picker
+ * Plugin URI: https://github.com/reyhoun/acf-hue-color-picker
+ * Description: It's a field that user can choose Color by hue.
+ * Version: 1.2.2 
+ * Author: Reyhoun
+ * Author URI: http://reyhoun.com/
+ * License: GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * GitHub Plugin URI: https://github.com/reyhoun/acf-hue-color-picker
+ * GitHub Branch:     master
 */
 
 
