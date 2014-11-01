@@ -1,7 +1,4 @@
 <?php
-
-$ss = 'dd';
-
 class acf_field_hue_color_picker extends acf_field {
 	
 	
