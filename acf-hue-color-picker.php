@@ -3,7 +3,7 @@
  * Plugin Name: Advanced Custom Fields: Hue Color Picker
  * Plugin URI: https://github.com/reyhoun/acf-hue-color-picker
  * Description: It's a field that user can choose Color by hue.
- * Version: 1.2.2 
+ * Version: 1.2.1 
  * Author: Reyhoun
  * Author URI: http://reyhoun.com/
  * License: GPLv2 or later

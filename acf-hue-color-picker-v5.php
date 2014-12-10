@@ -194,7 +194,6 @@ class acf_field_hue_color_picker extends acf_field {
 
         // add empty value (allows '' to be selected)
         if( $field['value'] == "" ){
-        	echo "string";
             $field['value'] = $field['hue_default'];
             
         }

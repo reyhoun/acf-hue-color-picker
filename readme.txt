@@ -28,6 +28,10 @@ This ACF field type is compatible with:
 
 == Changelog ==
 
+= 1.2.1 =
+Bug fix: in first time run 
+
+
 = 1.1.0 =
 * Add saturate and Lightness default value
 * Bug fix: Hue Label

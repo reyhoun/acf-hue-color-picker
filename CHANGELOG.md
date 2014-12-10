@@ -1,5 +1,8 @@
 # Changelog
 
+#### 1.2.1
+Bug fix: in first time run 
+
 #### 1.2.0
 * Compatible with [Github Updater](https://github.com/afragen/github-updater)
 
