@@ -1,6 +1,6 @@
 # Changelog
 
-#### 1.2.1
+#### 1.2.3
 Bug fix: in first time run 
 
 #### 1.2.0
