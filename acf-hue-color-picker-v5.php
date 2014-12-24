@@ -202,8 +202,8 @@ class acf_field_hue_color_picker extends acf_field {
 		echo '
 				<div class="clearfix">
 					<span class="hue-picker-label">Hue :</span>
-				  	<input name="' . $field['name'] . '" type="number" min="0" max="359" id="' . $field['key'] . '"  value="' . $field['value'] . '" style="border:1; font-weight:bold;">
-					<div id="' . $field['key'] . '1"></div>
+				  	<input name="' . $field['name'] . '" class="hueR" type="number" min="0" max="359" id="' . $field['key'] . '"  value="' . $field['value'] . '" style="border:1; font-weight:bold;" />
+					<div id="' . $field['key'] . '1" class="hueMAX mm"></div>
 				</div>
 			 ';
 
@@ -215,48 +215,57 @@ class acf_field_hue_color_picker extends acf_field {
 		echo "
 			<script>
 				(function($){
-
-					var amount_hue_id = '#" . $field['key'] ."' ;
-					var hue_slider_range_max_id = '#" . $field['key'] ."1';
 				
-
 					$(function() {
-						$( hue_slider_range_max_id ).slider({
-							range: 'max',
-							min: 0,
-							max: 359,
-							value: 180,
-							slide: function( event, ui ) {
-								var hslColor = '';
-								if (ui.value == 0) {
-									hslColor = 'hsl(' + ui.value + ', 0%, " . $field['Lightness'] . "%)';
-								} else {
-									hslColor = 'hsl(' + ui.value + ', " . $field['saturate'] . "%, " . $field['Lightness'] . "%)';
-								}
-								
-								$(amount_hue_id).css('background-color',hslColor)
-								$(amount_hue_id).val( ui.value );
-							}
-						});
 
-						$(amount_hue_id).on('change',function () {
-							$( hue_slider_range_max_id ).slider('value' , $( amount_hue_id ).val());
-							if ($( amount_hue_id ).val() == 0) {
-								$(amount_hue_id).css('background-color','hsl(' + $( hue_slider_range_max_id ).slider( 'value' ) + ',0%," . $field['Lightness'] . "%)');
-							} else {
-								$(amount_hue_id).css('background-color','hsl(' + $( hue_slider_range_max_id ).slider( 'value' ) + '," . $field['saturate'] . "%," . $field['Lightness'] . "%)');
-							}
+						$('.hueMAX').each(function(){
+                        	$(this).slider({
+								range: 'max',
+								min: 0,
+								max: 359,
+								value: 180,
+								slide: function( event, ui ) {
+									var hslColor = '';
+									if (ui.value == 0) {
+										hslColor = 'hsl(' + ui.value + ', 0%, " . $field['Lightness'] . "%)';
+									} else {
+										hslColor = 'hsl(' + ui.value + ', " . $field['saturate'] . "%, " . $field['Lightness'] . "%)';
+									}
+									
+									$(this).closest(':has(.clearfix .hueR)').find('.hueR').css('background-color',hslColor)
+									$(this).closest(':has(.clearfix .hueR)').find('.hueR').val( ui.value );
+								}
+							})
+						});
+					
+						$('.hueR').each(function(){
+                        	$(this).on('change',function () {
+								$('.hueMAX').each(function(){
+                        			$(this).slider('value' , $(this).closest(':has(.clearfix .hueR)').find('.hueR').val());
+                        		})
+	
+								if ($(this).closest(':has(.clearfix .hueR)').find('.hueR').val() == 0) {
+									alert('sdsd');
+									$(this).closest(':has(.clearfix .hueR)').find('.hueR').css('background-color','hsl(' + $(this).closest(':has(.clearfix .hueMAX)').find('.hueMAX').slider( 'value' ) + ',0%," . $field['Lightness'] . "%)');
+								} else {
+									$(this).closest(':has(.clearfix .hueR)').find('.hueR').css('background-color','hsl(' + $(this).closest(':has(.clearfix .hueMAX)').find('.hueMAX').slider( 'value' ) + '," . $field['saturate'] . "%," . $field['Lightness'] . "%)');
+								}
 							
+							})
 						})
 
-						$( hue_slider_range_max_id ).slider( 'value', $( amount_hue_id).val());
-
-						if ($( amount_hue_id ).val() != 0) {
-							$(amount_hue_id).css('background-color','hsl(' + $( amount_hue_id ).val() + '," . $field['saturate'] . "%," . $field['Lightness'] . "%)')
-						} else {
-							$(amount_hue_id).css('background-color','hsl(' + $( amount_hue_id ).val() + ',0%," . $field['Lightness'] . "%)')
-						}
+						$('.hueMAX').each(function(){
+                        	$(this).slider( 'value', $(this).closest(':has(.clearfix .hueR)').find('.hueR').val());
+                        })
 						
+						$('.hueR').each(function(){
+							if ($(this).val() != 0) {
+								$(this).css('background-color','hsl(' + $(this).val() + '," . $field['saturate'] . "%," . $field['Lightness'] . "%)')
+							} else {
+								$(this).css('background-color','hsl(' + $(this).val() + ',0%," . $field['Lightness'] . "%)')
+							}
+						})
+
 					});
 
 				})(jQuery);
